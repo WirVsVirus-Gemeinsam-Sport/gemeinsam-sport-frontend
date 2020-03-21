@@ -18,7 +18,7 @@ defmodule GemeinsamSportFrontend.RoomManager do
   end
 
   def handle_call(:create_room, _from, current_rooms) do
-    uuid = Ecto.UUID.generate()
+    uuid = UUID.uuid1()
     current_rooms = Map.put(current_rooms, uuid, %{})
 
     {:reply, uuid, current_rooms}
