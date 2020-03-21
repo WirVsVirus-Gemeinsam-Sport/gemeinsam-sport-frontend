@@ -4,7 +4,7 @@ on:
   push:
 env:
   GKE_PROJECT: ${{ secrets.GKE_PROJECT }}
-  GKE_CLUSTER: cluster-2
+  GKE_CLUSTER: cluster-3
   GKE_ZONE: europe-west1-d
 
 jobs:
