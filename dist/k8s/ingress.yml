@@ -10,7 +10,7 @@ spec:
   - host: wir-vs-virus-gemeinsam-sport-prototype.ablu.org
     http:
       paths:
-      - path: /
+      - path: /*
         backend:
           serviceName: frontend-service
           servicePort: 80
