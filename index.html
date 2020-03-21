@@ -1,0 +1,23 @@
+<html>
+    <body>
+        <h1>Workout</h1>
+        <ul>
+            <li>Hold plank!</li>
+            <li>...</li>
+        </ul>
+
+        <div id="meet"></div>
+
+        <script src='https://meet.jit.si/external_api.js'></script>
+        <script>
+            const domain = 'meet.jit.si';
+            const options = {
+                roomName: 'tesdfadfsasdfsafsdafsdfasds',
+                width: 700,
+                height: 700,
+                parentNode: document.querySelector('#meet')
+            };
+            const api = new JitsiMeetExternalAPI(domain, options);
+    </script>
+    </body>
+</html>
