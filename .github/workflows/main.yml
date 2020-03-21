@@ -35,13 +35,16 @@ jobs:
         [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
 
         # Use Docker `latest` tag convention
-        [ "$VERSION" == "master" ] && VERSION=latest
+        if [ "$VERSION" == "master" ] then
+          VERSION=0.0.$(git rev-list HEAD --count)
+        fi
 
         echo IMAGE_ID=$IMAGE_ID
         echo VERSION=$VERSION
 
         docker tag image $IMAGE_ID:$VERSION
         docker push $IMAGE_ID:$VERSION
+        sed -i "s/:latest/:$VERSION" dist/k8s/frontend.yml
         
     # Setup gcloud CLI
     - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
