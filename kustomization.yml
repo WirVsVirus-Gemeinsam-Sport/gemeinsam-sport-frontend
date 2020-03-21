@@ -3,3 +3,5 @@ kind: Kustomization
 resources:
 - dist/k8s/frontend.yml
 - dist/k8s/frontend-service.yml
+- dist/k8s/ingress.yml
+- dist/k8s/tls-cert.yml
