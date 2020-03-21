@@ -25,6 +25,6 @@ spec:
               name: phoenix-secrect-base
               key: phoenix-secrect-base
         ports:
-        - containerPort: 8080
+        - containerPort: 8000
       imagePullSecrets:
       - name: regcred
