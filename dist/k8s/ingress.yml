@@ -6,6 +6,12 @@ metadata:
     kubernetes.io/ingress.global-static-ip-name: frontend-ip
     networking.gke.io/managed-certificates: frontend-cert
 spec:
-  backend:
-    serviceName: frontend-service
-    servicePort: 80
+  rules:
+  - host: wir-vs-virus-gemeinsam-sport-prototype.ablu.org
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: frontend-service
+          servicePort: 80
+
