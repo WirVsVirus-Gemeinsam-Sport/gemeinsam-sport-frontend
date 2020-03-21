@@ -1,0 +1,17 @@
+<h2><%= assigns[:room].workout %></h2>
+<div id="meet"></div>
+
+<script src='https://meet.jit.si/external_api.js'></script>
+
+<script>
+document.body.onload = function() {
+    const domain = 'meet.jit.si';
+    const options = {
+        roomName: '<%= assigns[:room].id %>',
+        width: 700,
+        height: 700,
+        parentNode: document.querySelector('#meet')
+    };
+    api = new JitsiMeetExternalAPI(domain, options);
+}
+</script>
