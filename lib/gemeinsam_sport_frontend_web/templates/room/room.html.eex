@@ -1,13 +1,14 @@
-<h2><%= assigns[:room].workout %></h2>
+<input id="workout_description" value="<%= assigns[:room].workout %>">
 <div id="meet"></div>
 
 <script src='https://meet.jit.si/external_api.js'></script>
 
 <script>
+roomId = '<%= assigns[:room].id %>';
 document.body.onload = function() {
     const domain = 'meet.jit.si';
     const options = {
-        roomName: '<%= assigns[:room].id %>',
+        roomName: roomId,
         width: 700,
         height: 700,
         parentNode: document.querySelector('#meet')
