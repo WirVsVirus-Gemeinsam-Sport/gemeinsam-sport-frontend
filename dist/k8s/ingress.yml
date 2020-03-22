@@ -5,7 +5,6 @@ metadata:
   annotations:
     kubernetes.io/ingress.global-static-ip-name: frontend-ip
     networking.gke.io/managed-certificates: frontend-cert
-    nginx.org/websocket-services: "ws-svc"
 spec:
   backend:
     serviceName: frontend-service
