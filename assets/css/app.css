@@ -14,7 +14,7 @@ html {
 .jumbotron {
     background-image: url("/images/hackathon-logo.png"), url("/images/header.jpg");
     background-size: 100%, cover;
-    background-position: right top, center;
+    background-position: right top, inherit;
     background-repeat: no-repeat;
 
     padding-top: 100px;
