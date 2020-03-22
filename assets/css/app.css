@@ -7,28 +7,60 @@ html {
     max-width: 100%;
 }
 
-.container-fluid {
-    padding: 0;
+main {
+    padding: 0 !important;
 }
 
 .jumbotron {
-    background-image: url("/images/hackathon-logo.png"), url("/images/header.jpg");
-    background-size: 100%, cover;
-    background-position: right top, inherit;
-    background-repeat: no-repeat;
-
-    padding-top: 100px;
-
-    color: white;
-    text-shadow: 1px 1px #555;
-    font-size: 2rem;
+    padding: 0;
+    max-width: 1000px;
+    margin: auto;
 }
 
-@media (min-width: 576px) {
-    .jumbotron {
-        background-size: 50%, cover;
-        padding-top: 50px;
+.header-background {
+    background-image: /* url("/images/hackathon-logo.png"), */  url("/images/header.jpg");
+    height: 500px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.header-content {
+    margin: 2em;
+    position: absolute;
+    background-color: #FFFFFFbb;
+    padding: 10px;
+    width: calc(100% - 4em);
+}
+
+.header-content > p{
+    margin-bottom: 0;
+}
+
+.description {
+    padding: 2em;
+}
+
+@media only screen and (max-width: 600px) {
+    .header-background {
+        max-height: 300px;
     }
+
+    .header-content {
+        margin: 0.5em !important;
+        width: calc(100% - 1em) !important;
+    }
+
+    .description {
+        padding: 1em;
+    }
+}
+
+.container-fluid {
+    padding: 0;
 }
 
 workout-display {
