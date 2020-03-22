@@ -1,13 +1,23 @@
 <div class="form-row h-100">
     <div id="meet" class="col-10"></div>
     <div id="workout-view" class="col-2">
-        <button v-on:click="add()">Add</button>
-        <workout-step v-for="step in workoutSteps" :key="step.id"
+        <button v-if="editMode" v-on:click="add()">Add</button>
+        <button v-if="!editMode" v-on:click="editMode = true">Edit</button>
+        <button v-if="editMode" v-on:click="editMode = false">Done</button>
+        <workout-step
+            v-if="editMode"
+            v-for="step in store.workoutSteps" :key="step.id"
             v-bind:type="step.type"
             v-bind:duration="step.duration"
             v-on:updated="update(step.id, ...arguments)"
-            v-on:removed="remove(step.id)">
+            v-on:removed="remove(step.id)"
+            >
         </workout-step>
+        <div v-if="!editMode" >
+            <div v-for="step in store.workoutSteps" :key="step.id">
+            {{step.type}} -- {{step.duration}}s
+            </div>
+        </div>
     </div>
 </div>
 

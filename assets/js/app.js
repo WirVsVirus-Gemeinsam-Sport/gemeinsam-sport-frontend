@@ -19,7 +19,10 @@ import {dataStore} from './datastore';
 
 var app = new Vue({
     el: '#workout-view',
-    data: dataStore,
+    data: {
+      store: dataStore,
+      editMode: false,
+    },
     methods: {
       update(id, type, duration) {
         dataStore.update(id, type, duration)
