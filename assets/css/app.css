@@ -28,6 +28,14 @@ main {
     margin: auto;
 }
 
+.header-background > img {
+    width: 200px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: #FFFFFF55;
+}
+
 .header-content {
     margin: 2em;
     position: absolute;
