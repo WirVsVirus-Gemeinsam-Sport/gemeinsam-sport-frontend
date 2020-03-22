@@ -7,6 +7,10 @@ html {
     max-width: 100%;
 }
 
+.container-fluid {
+    padding: 0;
+}
+
 .jumbotron {
     background-image: url("/images/hackathon-logo.png"), url("/images/header.jpg");
     background-size: 100%, cover;
