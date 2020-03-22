@@ -3,7 +3,10 @@ import socket from './socket'
 class DataStore {
     constructor() {
         this.channel = socket.channel("room:" + roomId, {})
-        this.channel.on("updated_workout", msg => this.workoutSteps = msg.new_workout )
+        this.channel.on("updated_workout", msg => {
+            console.log('new msg:', msg)
+            this.workoutSteps = msg.new_workout
+        })
         this.channel.on("elapsed", msg => this.currentElapsed = msg.elapsed_milliseconds / 1000.0)
         this.channel.join()
             .receive("ok", resp => { console.log("Joined successfully", resp) })
@@ -19,6 +22,7 @@ class DataStore {
     }
 
     push(topic, data = {}) {
+        console.log('pushing', topic, data)
         this.channel.push(topic, data, 10000)
             .receive("ok", (msg) => console.log("created message", msg) )
             .receive("error", (reasons) => console.log("create failed", reasons) )

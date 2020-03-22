@@ -29,7 +29,7 @@
 <script src='https://meet.jit.si/external_api.js'></script>
 
 <script>
-roomId = '<%= assigns[:room].id %>';
+roomId = '<%= assigns[:id] %>';
 document.body.onload = function() {
     const domain = 'meet.jit.si';
     const options = {
@@ -39,6 +39,6 @@ document.body.onload = function() {
             SHOW_JITSI_WATERMARK: false
         },
     };
-    api = new JitsiMeetExternalAPI(domain, options);
+    //api = new JitsiMeetExternalAPI(domain, options);
 }
 </script>

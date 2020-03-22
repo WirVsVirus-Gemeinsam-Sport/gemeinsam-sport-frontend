@@ -11,6 +11,8 @@ defmodule GemeinsamSportFrontend.Application do
       # Start the endpoint when the application starts
       GemeinsamSportFrontendWeb.Endpoint,
       GemeinsamSportFrontend.RoomManager,
+      GemeinsamSportFrontend.RoomRegistry,
+      GemeinsamSportFrontend.Dispatcher,
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
