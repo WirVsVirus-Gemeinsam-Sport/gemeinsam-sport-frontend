@@ -16,6 +16,7 @@ defmodule GemeinsamSportFrontendWeb.Router do
   scope "/", GemeinsamSportFrontendWeb do
     pipe_through :browser
 
+    get "/", LandingPageController, :index
     resources "/", RoomController
   end
 

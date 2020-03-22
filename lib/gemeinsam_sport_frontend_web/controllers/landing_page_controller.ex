@@ -1,4 +1,4 @@
-defmodule GemeinsamSportFrontendWeb.PageController do
+defmodule GemeinsamSportFrontendWeb.LandingPageController do
   use GemeinsamSportFrontendWeb, :controller
 
   def index(conn, _params) do

@@ -1,0 +1,16 @@
+<div class="jumbotron">
+  <h1 class="display-4">Corona Gym</h1>
+  <p class="lead">
+  Spaß, Humor und gegenseitige Motivation beim Sport?
+  Starte hier dein gemeinsames Workout mit deinen Freunden.
+  </p>
+  <hr class="my-4">
+  <p>Wie es funktioniert:</p>
+  <ul>
+    <li>Erstelle einen Raum</li>
+    <li>Kopiere den Link aus der Addresseleiste und hole deine Freunde in den Call</li>
+    <li>Definiere deine Übungen</li>
+    <li>Workout!</li>
+  </ul>
+  <a class="btn btn-primary btn-lg" href="/new" role="button">Raum erstellen</a>
+</div>

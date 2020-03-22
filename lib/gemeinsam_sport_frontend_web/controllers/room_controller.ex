@@ -1,7 +1,8 @@
 defmodule GemeinsamSportFrontendWeb.RoomController do
   use GemeinsamSportFrontendWeb, :controller
 
-  def index(conn, _params) do
+
+  def new(conn, _params) do
     {_pid, room_id} = GemeinsamSportFrontend.RoomManager.create_room()
     redirect(conn, to: "/#{room_id}")
   end
