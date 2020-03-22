@@ -1,12 +1,34 @@
 <div class="form-row h-100">
     <div id="meet" class="col-10"></div>
     <div id="workout-view" class="col-2 h-100">
-        <button v-if="editMode" v-on:click="add()">Add</button>
-        <button v-if="editMode" v-on:click="editMode = false">Done</button>
+        <button
+            v-if="editMode"
+            v-on:click="add()"
+            class="btn btn-default btn-lg">
+            <i class="fa fa-plus"></i>
+        </button>
+        <button
+            v-if="editMode"
+            v-on:click="editMode = false"
+            class="btn btn-default btn-lg">
+            <i class="fa fa-check"></i>
+        </button>
 
-        <button v-if="!editMode && !workoutRunning" v-on:click="editMode = true">Edit</button>
-        <button v-if="!editMode && !workoutRunning" v-on:click="startWorkout()">Start</button>
-
+        <button
+            v-if="!editMode && !workoutRunning"
+            v-on:click="editMode = true"
+            class="btn btn-default btn-lg"
+            >
+            <i class="fa fa-pencil"></i>
+        </button>
+        <button
+            v-if="!editMode && !workoutRunning"
+            v-on:click="startWorkout()"
+            type="button"
+            class="btn btn-default btn-lg">
+            <i class="fa fa-play"></i>
+        </button>
+        
         <workout-step
             v-if="editMode"
             v-for="step in commonState.workoutSteps" :key="step.id"
@@ -35,7 +57,7 @@ document.body.onload = function() {
         roomName: roomId,
         parentNode: document.querySelector('#meet'),
     };
-    api = new JitsiMeetExternalAPI(domain, options);
-    api.executeCommand('toggleTileView');
+    //api = new JitsiMeetExternalAPI(domain, options);
+    //api.executeCommand('toggleTileView');
 }
 </script>
