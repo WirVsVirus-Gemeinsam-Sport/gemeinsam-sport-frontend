@@ -28,7 +28,7 @@
             class="btn btn-default btn-lg">
             <i class="fa fa-play"></i>
         </button>
-        
+
         <workout-step
             v-if="editMode"
             v-for="step in commonState.workoutSteps" :key="step.id"
@@ -57,7 +57,7 @@ document.body.onload = function() {
         roomName: roomId,
         parentNode: document.querySelector('#meet'),
     };
-    //api = new JitsiMeetExternalAPI(domain, options);
-    //api.executeCommand('toggleTileView');
+    api = new JitsiMeetExternalAPI(domain, options);
+    api.executeCommand('toggleTileView');
 }
 </script>
