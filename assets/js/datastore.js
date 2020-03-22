@@ -37,7 +37,7 @@ class DataStore {
     update(id, type, duration) {
         const itemToUpdate = this.workoutSteps.find(item => item.id == id)
         itemToUpdate.type = type
-        itemToUpdate.duration = duration
+        itemToUpdate.duration = Number.parseInt(duration)
         this.sendUpdate()
     }
 
