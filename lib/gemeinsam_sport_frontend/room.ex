@@ -42,7 +42,12 @@ defmodule GemeinsamSportFrontend.Room do
     GemeinsamSportFrontend.RoomRegistry.register(id)
     {:ok, %State{
       id: id,
-      workout: []
+      workout: [
+        %{id: 1, type: "Warmup", duration: 5},
+        %{id: 2, type: "Do a plank", duration: 30},
+        %{id: 3, type: "Break", duration: 10},
+        %{id: 4, type: "Push Ups", duration: 30},
+      ]
     }}
   end
 
