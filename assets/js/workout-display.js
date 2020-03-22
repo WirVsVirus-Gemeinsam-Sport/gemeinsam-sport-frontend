@@ -59,7 +59,9 @@ Vue.component('workout-display', {
             return this.stepsWithRemainingTime.filter(step => step.remaining == 0)
         },
         stepsAfterCurrent() {
-            return this.stepsWithRemainingTime.filter(step => step.duration == step.remaining)
+            return this.stepsWithRemainingTime.filter(step =>
+                step.id != this.currentlyActiveStepId && step.duration == step.remaining
+            )
         },
         activeStep() {
             return this.stepsWithRemainingTime.find(step => step.id == this.currentlyActiveStepId)
