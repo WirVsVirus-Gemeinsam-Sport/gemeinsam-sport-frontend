@@ -1,7 +1,6 @@
 <div class="form-row h-100">
     <div id="meet" class="col-10"></div>
-    <div id="workout-view" class="col-2">
-        {{commonState.currentElapsed}}
+    <div id="workout-view" class="col-2 h-100">
         <button v-if="editMode" v-on:click="add()">Add</button>
         <button v-if="editMode" v-on:click="editMode = false">Done</button>
 
@@ -17,12 +16,12 @@
             v-on:removed="remove(step.id)"
             >
         </workout-step>
-        <div v-if="!editMode" >
-            <div v-for="step in commonState.workoutSteps" :key="step.id">
-            {{step.type}} -- {{step.duration}}s
-            <b v-if="workoutRunning && currentlyActiveStepId === step.id">ACTIVE</b>
-            </div>
-        </div>
+        <workout-display
+            v-if="!editMode" 
+            v-bind:steps="commonState.workoutSteps"
+            v-bind:elapsed="commonState.currentElapsed"
+            class="h-100">
+        </workout-display>
     </div>
 </div>
 
@@ -39,6 +38,6 @@ document.body.onload = function() {
             SHOW_JITSI_WATERMARK: false
         },
     };
-    //api = new JitsiMeetExternalAPI(domain, options);
+    api = new JitsiMeetExternalAPI(domain, options);
 }
 </script>

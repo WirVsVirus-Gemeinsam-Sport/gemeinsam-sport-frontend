@@ -4,5 +4,37 @@
 
 html {
     height: 100%;
+    max-width: 100%;
 }
 
+workout-display {
+    height: 100%;
+}
+
+.past {
+    height: 30%;
+
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+}
+
+.active {
+    margin: 0;
+    padding: 0;
+    height: 40%;
+}
+
+.active-type {
+    font-size: 3rem;
+    margin: 0 auto;
+}
+.active-countdown {
+    font-size: 3rem;
+    margin: 0 auto;
+}
+
+
+.upcoming {
+    height: 30%;
+}

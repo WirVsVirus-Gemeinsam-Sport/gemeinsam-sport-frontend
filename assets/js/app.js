@@ -14,6 +14,7 @@ import Vue from 'vue'
 import "phoenix_html"
 
 import "./workout-step"
+import "./workout-display"
 
 import {dataStore} from './datastore';
 
@@ -39,17 +40,7 @@ var app = new Vue({
     },
     computed: {
       workoutRunning() {
-        return this.commonState.currentElapsed !== -1
+        return this.commonState.currentElapsed >= 0
       },
-      currentlyActiveStepId() {
-        let elapsed = this.commonState.currentElapsed
-        for (const step of this.commonState.workoutSteps) {
-          if (step.duration > elapsed) {
-            return step.id
-          } else {
-            elapsed -= step.duration
-          }
-        }
-      }
     }
 })
