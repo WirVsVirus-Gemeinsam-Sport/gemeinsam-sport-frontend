@@ -1,12 +1,14 @@
-<div id="meet"></div>
-<div id="workout-view">
-    <button v-on:click="add()">Add</button>
-    <workout-step v-for="step in workoutSteps" :key="step.id"
-        v-bind:type="step.type"
-        v-bind:duration="step.duration"
-        v-on:updated="update(step.id, ...arguments)"
-        v-on:removed="remove(step.id)">
-    </workout-step>
+<div class="form-row h-100">
+    <div id="meet" class="col-10"></div>
+    <div id="workout-view" class="col-2">
+        <button v-on:click="add()">Add</button>
+        <workout-step v-for="step in workoutSteps" :key="step.id"
+            v-bind:type="step.type"
+            v-bind:duration="step.duration"
+            v-on:updated="update(step.id, ...arguments)"
+            v-on:removed="remove(step.id)">
+        </workout-step>
+    </div>
 </div>
 
 <script src='https://meet.jit.si/external_api.js'></script>
