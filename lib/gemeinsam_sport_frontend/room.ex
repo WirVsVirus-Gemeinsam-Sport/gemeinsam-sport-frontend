@@ -26,8 +26,12 @@ defmodule GemeinsamSportFrontend.Room do
     GenServer.cast(server, :start_workout)
   end
 
-  defp get_workout_length(_workout) do
-    10_000
+  defp get_workout_length(workout) do
+    duration_in_seconds = workout
+      |> Enum.map(fn %{"duration" => duration} -> duration end)
+      |> Enum.sum()
+
+    duration_in_seconds * 1_000
   end
 
   def init(id) do
@@ -60,12 +64,19 @@ defmodule GemeinsamSportFrontend.Room do
     {:noreply, %State{state | start_time: :erlang.monotonic_time()}}
   end
 
-  def handle_info(:tick, state = %State{id: id, start_time: start_time}) do
-    elapsed = :erlang.monotonic_time() - start_time
+  def handle_info(:tick, state) do
+    elapsed = :erlang.monotonic_time() - state.start_time
     elapsed_milliseconds = :erlang.convert_time_unit(elapsed, :native, :millisecond)
-    Dispatcher.notify({:room, id}, {:elapsed, elapsed_milliseconds})
+    Dispatcher.notify({:room, state.id}, {:elapsed, elapsed_milliseconds})
 
-    Process.send_after(self(), :tick, 1_000)
+    state = case get_workout_length(state.workout) > elapsed_milliseconds do
+      true ->
+        Process.send_after(self(), :tick, 1_000)
+        state
+      false ->
+        Dispatcher.notify({:room, state.id}, {:elapsed, nil})
+        %State{state | start_time: nil}
+    end
     {:noreply, state}
   end
 end
