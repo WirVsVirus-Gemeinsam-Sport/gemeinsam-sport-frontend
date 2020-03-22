@@ -36,6 +36,7 @@
             v-bind:duration="step.duration"
             v-on:updated="update(step.id, ...arguments)"
             v-on:removed="remove(step.id)"
+            class="p-1"
             >
         </workout-step>
         <workout-display
