@@ -20,7 +20,7 @@ import {dataStore} from './datastore';
 var app = new Vue({
     el: '#workout-view',
     data: {
-      store: dataStore,
+      commonState: dataStore,
       editMode: false,
     },
     methods: {
@@ -32,6 +32,24 @@ var app = new Vue({
       },
       add() {
         dataStore.add()
+      },
+      startWorkout() {
+        dataStore.startWorkout()
+      }
+    },
+    computed: {
+      workoutRunning() {
+        return this.commonState.currentElapsed !== -1
+      },
+      currentlyActiveStepId() {
+        let elapsed = this.commonState.currentElapsed
+        for (const step of this.commonState.workoutSteps) {
+          if (step.duration > elapsed) {
+            return step.id
+          } else {
+            elapsed -= step.duration
+          }
+        }
       }
     }
 })

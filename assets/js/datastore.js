@@ -4,6 +4,7 @@ class DataStore {
     constructor() {
         this.channel = socket.channel("room:" + roomId, {})
         this.channel.on("updated_workout", msg => this.workoutSteps = msg.new_workout )
+        this.channel.on("elapsed", msg => this.currentElapsed = msg.elapsed_milliseconds / 1000.0)
         this.channel.join()
             .receive("ok", resp => { console.log("Joined successfully", resp) })
             .receive("error", resp => { console.log("Unable to join", resp) })
@@ -13,14 +14,20 @@ class DataStore {
             {id: 2, type: "Pushup", duration: 20},
             {id: 3, type: "Break", duration: 10},
         ]
+
+        this.currentElapsed = -1
+    }
+
+    push(topic, data = {}) {
+        this.channel.push(topic, data, 10000)
+            .receive("ok", (msg) => console.log("created message", msg) )
+            .receive("error", (reasons) => console.log("create failed", reasons) )
+            .receive("timeout", () => console.log("Networking issue...") )
     }
 
     sendUpdate() {
         console.log('sending new workout', this.workoutSteps)
-        this.channel.push("updated_workout", {new_workout: this.workoutSteps}, 10000)
-            .receive("ok", (msg) => console.log("created message", msg) )
-            .receive("error", (reasons) => console.log("create failed", reasons) )
-            .receive("timeout", () => console.log("Networking issue...") )
+        this.push("updated_workout", {new_workout: this.workoutSteps})
     }
 
     update(id, type, duration) {
@@ -48,6 +55,10 @@ class DataStore {
             duration: 10,
         })
         this.sendUpdate()
+    }
+
+    startWorkout() {
+        this.push("start")
     }
 }
 

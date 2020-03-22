@@ -6,8 +6,25 @@ defmodule GemeinsamSportFrontendWeb.RoomChannel do
   end
 
   def handle_in(type = "updated_workout", msg, socket) do
-    IO.inspect(socket, label: "socket:")
     broadcast!(socket, type, msg)
+    {:noreply, socket}
+  end
+
+  def handle_in("start", _, socket) do
+    start_time = :erlang.monotonic_time()
+    socket = assign(socket, :start_time, start_time)
+    send(self(), :tick)
+    {:noreply, socket}
+  end
+
+  def handle_info(:tick, socket) do
+    current_time = :erlang.monotonic_time()
+    elapsed = current_time - socket.assigns[:start_time]
+    elapsed_milliseconds = :erlang.convert_time_unit(elapsed, :native, :millisecond)
+    broadcast!(socket, "elapsed", %{elapsed_milliseconds: elapsed_milliseconds})
+
+    Process.send_after(self(), :tick, 1_000)
+
     {:noreply, socket}
   end
 end
