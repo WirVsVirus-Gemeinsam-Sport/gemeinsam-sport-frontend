@@ -4,4 +4,4 @@ metadata:
   name: frontend-cert
 spec:
   domains:
-    - wir-vs-virus-gemeinsam-sport-prototype.ablu.org
+    - corona-gym.org

@@ -7,7 +7,7 @@ metadata:
     networking.gke.io/managed-certificates: frontend-cert
 spec:
   rules:
-  - host: wir-vs-virus-gemeinsam-sport-prototype.ablu.org
+  - host: corona-gym.org
     http:
       paths:
       - path: /*
