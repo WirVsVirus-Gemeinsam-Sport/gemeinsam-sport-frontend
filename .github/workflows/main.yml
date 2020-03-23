@@ -2,6 +2,8 @@ name: Docker
 
 on:
   push:
+    branches:
+      - master
 env:
   GKE_PROJECT: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER: cluster-3
