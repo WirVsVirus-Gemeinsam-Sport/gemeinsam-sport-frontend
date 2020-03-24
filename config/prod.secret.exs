@@ -4,6 +4,10 @@
 # remember to add this file to your .gitignore.
 use Mix.Config
 
+config :gemeinsam_sport_frontend, GemeinsamSportFrontend.Repo,
+  # ssl: true,
+  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
+
 config :gemeinsam_sport_frontend, GemeinsamSportFrontendWeb.Endpoint,
   http: [
     port: String.to_integer(System.get_env("PORT") || "4000"),

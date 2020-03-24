@@ -1,13 +1,14 @@
 defmodule GemeinsamSportFrontend.Room do
   use GenServer
   alias GemeinsamSportFrontend.Dispatcher
+  alias GemeinsamSportFrontend.Repo
 
   defmodule State do
-    defstruct id: nil, workout: nil, start_time: nil
+    defstruct room: nil, start_time: nil
   end
 
-  def start_link(id \\ nil) do
-    GenServer.start_link(__MODULE__, id)
+  def start_link(room \\ nil) do
+    GenServer.start_link(__MODULE__, room)
   end
 
   def get_id(server) do
@@ -28,40 +29,32 @@ defmodule GemeinsamSportFrontend.Room do
 
   defp get_workout_length(workout) do
     duration_in_seconds = workout
-      |> Enum.map(fn %{"duration" => duration} -> duration end)
+      |> Enum.map(fn %{duration: duration} -> duration end)
       |> Enum.sum()
 
     duration_in_seconds * 1_000
   end
 
-  def init(id) do
-    id = case id do
-      nil -> UUID.uuid1()
-      id -> id
-    end
-    GemeinsamSportFrontend.RoomRegistry.register(id)
+  def init(room) do
+    GemeinsamSportFrontend.RoomRegistry.register(room.id)
     {:ok, %State{
-      id: id,
-      workout: [
-        %{"id" => 1, "type" => "Warmup", "duration" => 5},
-        %{"id" => 2, "type" => "Do a plank", "duration" => 30},
-        %{"id" => 3, "type" => "Break", "duration" => 10},
-        %{"id" => 4, "type" => "Push Ups", "duration" => 30},
-      ]
+      room: room,
     }}
   end
 
-  def handle_call(:get_id, _from, state = %State{id: id}) do
-    {:reply, id, state}
+  def handle_call(:get_id, _from, state) do
+    {:reply, state.room.id, state}
   end
 
-  def handle_call(:get_workout, _from, state = %State{workout: workout}) do
-    {:reply, workout, state}
+  def handle_call(:get_workout, _from, state) do
+    {:reply, state.room.workout_steps, state}
   end
 
-  def handle_cast({:set_workout, workout}, state = %State{id: id}) do
-    Dispatcher.notify({:room, id}, {:workout_updated, workout})
-    {:noreply, %State{state | workout: workout}}
+  def handle_cast({:set_workout, workout_steps}, state) do
+    Dispatcher.notify({:room, state.room.id}, {:workout_updated, workout_steps})
+    room = GemeinsamSportFrontend.Schema.Room.changeset(state.room, %{workout_steps: workout_steps})
+      |> Repo.update!()
+    {:noreply, %State{state | room: room}}
   end
 
   def handle_cast(:start_workout, state) do
@@ -72,14 +65,14 @@ defmodule GemeinsamSportFrontend.Room do
   def handle_info(:tick, state) do
     elapsed = :erlang.monotonic_time() - state.start_time
     elapsed_milliseconds = :erlang.convert_time_unit(elapsed, :native, :millisecond)
-    Dispatcher.notify({:room, state.id}, {:elapsed, elapsed_milliseconds})
+    Dispatcher.notify({:room, state.room.id}, {:elapsed, elapsed_milliseconds})
 
-    state = case get_workout_length(state.workout) > elapsed_milliseconds do
+    state = case get_workout_length(state.room.workout_steps) > elapsed_milliseconds do
       true ->
         Process.send_after(self(), :tick, 1_000)
         state
       false ->
-        Dispatcher.notify({:room, state.id}, {:elapsed, nil})
+        Dispatcher.notify({:room, state.room.id}, {:elapsed, nil})
         %State{state | start_time: nil}
     end
     {:noreply, state}

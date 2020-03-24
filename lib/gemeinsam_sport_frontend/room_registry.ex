@@ -9,13 +9,12 @@ defmodule GemeinsamSportFrontend.RoomRegistry do
     Registry.register(__MODULE__, id, [])
   end
 
-  def get_room(id) do
-    case Registry.lookup(__MODULE__, id) |> IO.inspect(label: "lookup:") do
+  def get_live_room(id) do
+    case Registry.lookup(__MODULE__, id) do
       [{pid, _}] ->
         pid
       _ ->
-        {pid, _} = GemeinsamSportFrontend.RoomManager.create_room(id)
-        pid
+        nil
     end
   end
 

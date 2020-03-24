@@ -7,6 +7,8 @@
 # General application configuration
 use Mix.Config
 
+config :gemeinsam_sport_frontend,
+  ecto_repos: [GemeinsamSportFrontend.Repo]
 
 # Configures the endpoint
 config :gemeinsam_sport_frontend, GemeinsamSportFrontendWeb.Endpoint,
