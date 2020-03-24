@@ -3,6 +3,7 @@ defmodule GemeinsamSportFrontendWeb.Router do
 
   pipeline :browser do
     plug :accepts, ["html"]
+    plug :health_check, "/healthz"
     plug :fetch_session
     plug :fetch_flash
     plug :protect_from_forgery
@@ -20,8 +21,12 @@ defmodule GemeinsamSportFrontendWeb.Router do
     resources "/", RoomController
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", GemeinsamSportFrontendWeb do
-  #   pipe_through :api
-  # end
+  defp health_check(%{request_path: path, halted: false} = conn, path) do
+    conn
+    |> Plug.Conn.put_resp_header("content-type", "text/html")
+    |> Plug.Conn.send_resp(200, "OK")
+    |> Plug.Conn.halt()
+  end
+
+  defp health_check(conn, _), do: conn
 end
