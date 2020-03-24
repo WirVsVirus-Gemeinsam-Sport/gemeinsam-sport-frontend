@@ -3,12 +3,13 @@ defmodule GemeinsamSportFrontendWeb.RoomController do
 
 
   def new(conn, _params) do
-    {_pid, room_id} = GemeinsamSportFrontend.RoomManager.create_room()
+    pid = GemeinsamSportFrontend.RoomManager.create_room()
+    room_id = GemeinsamSportFrontend.Room.get_id(pid)
     redirect(conn, to: "/#{room_id}")
   end
 
   def show(conn, %{"id" => id}) do
-    room = GemeinsamSportFrontend.RoomRegistry.get_room(id)
+    room = GemeinsamSportFrontend.RoomManager.get_room(id)
     render(conn, "room.html", id: id, workout: GemeinsamSportFrontend.Room.get_workout(room))
   end
 end
