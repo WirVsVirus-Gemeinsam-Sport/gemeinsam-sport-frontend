@@ -57,8 +57,21 @@ document.body.onload = function() {
     const options = {
         roomName: roomId,
         parentNode: document.querySelector('#meet'),
+        // cf. https://github.com/jitsi/jitsi-meet/blob/master/interface_config.js
+        interfaceConfigOverwrite: {
+            TOOLBAR_BUTTONS: [
+                'microphone',
+                'camera',
+                'fullscreen',
+                'hangup',
+            ]
+        },
     };
     api = new JitsiMeetExternalAPI(domain, options);
-    api.executeCommand('toggleTileView');
+    api.addEventListener('tileViewChanged', function(event) {
+        if (!event.enabled) {
+            api.executeCommand('toggleTileView');
+        }
+    });
 }
 </script>
