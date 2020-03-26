@@ -1,0 +1,7 @@
+apiVersion: networking.gke.io/v1beta1
+kind: ManagedCertificate
+metadata:
+  name: frontend-staging-cert
+spec:
+  domains:
+    - staging.corona-gym.org

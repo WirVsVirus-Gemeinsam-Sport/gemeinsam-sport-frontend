@@ -1,0 +1,11 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: frontend-ingress
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: frontend-staging-ip
+    networking.gke.io/managed-certificates: frontend-staging-cert
+spec:
+  backend:
+    serviceName: frontend-service
+    servicePort: 80
