@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: docker.pkg.github.com/wirvsvirus-gemeinsam-sport/gemeinsam-sport-frontend/frontend:latest
+        image: docker.pkg.github.com/corona-gym/corona-gym/frontend:latest
         readinessProbe:
           httpGet:
             path: /js/app.js
